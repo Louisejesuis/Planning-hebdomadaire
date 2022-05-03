@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New UserSteps{% endblock %}
+
+{% block body %}
+    <h1>Create new UserSteps</h1>
+
+    {{ include('user_steps/_form.html.twig') }}
+
+    <a href="{{ path('app_user_steps_index') }}">back to list</a>
+{% endblock %}

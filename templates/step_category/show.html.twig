@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StepCategory{% endblock %}
+
+{% block body %}
+    <h1>StepCategory</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ step_category.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ step_category.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_step_category_index') }}">back to list</a>
+
+    <a href="{{ path('app_step_category_edit', {'id': step_category.id}) }}">edit</a>
+
+    {{ include('step_category/_delete_form.html.twig') }}
+{% endblock %}

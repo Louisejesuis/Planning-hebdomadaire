@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserSteps index{% endblock %}
+
+{% block body %}
+    <h1>UserSteps index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Comment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user_step in user_steps %}
+            <tr>
+                <td>{{ user_step.id }}</td>
+                <td>{{ user_step.date ? user_step.date|date('Y-m-d') : '' }}</td>
+                <td>{{ user_step.duration ? user_step.duration|date('H:i:s') : '' }}</td>
+                <td>{{ user_step.comment }}</td>
+                <td>
+                    <a href="{{ path('app_user_steps_show', {'id': user_step.id}) }}">show</a>
+                    <a href="{{ path('app_user_steps_edit', {'id': user_step.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_steps_new') }}">Create new</a>
+{% endblock %}

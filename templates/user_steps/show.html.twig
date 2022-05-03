@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserSteps{% endblock %}
+
+{% block body %}
+    <h1>UserSteps</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user_step.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ user_step.date ? user_step.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ user_step.duration ? user_step.duration|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ user_step.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_steps_index') }}">back to list</a>
+
+    <a href="{{ path('app_user_steps_edit', {'id': user_step.id}) }}">edit</a>
+
+    {{ include('user_steps/_delete_form.html.twig') }}
+{% endblock %}

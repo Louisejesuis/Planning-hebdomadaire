@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit StepCategory{% endblock %}
+
+{% block body %}
+    <h1>Edit StepCategory</h1>
+
+    {{ include('step_category/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_step_category_index') }}">back to list</a>
+
+    {{ include('step_category/_delete_form.html.twig') }}
+{% endblock %}
