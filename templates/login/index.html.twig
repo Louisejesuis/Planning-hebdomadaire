@@ -1,20 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{# ... #}
+{% block title %}Se connecter{% endblock %}
 
 {% block body %}
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h2 class="title has-text-centered is-size-2">Se connecter</h2>
+        </div>
+    </section>
+
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+    <div class="columns is-centered py-6">
+        <div class="column is-half box px-4 py-4">
+            <form action="{{ path('app_login') }}" method="post">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-        <input type="hidden" name="_target_path" value="/user/steps"/> 
+                <div class="field is-flex-direction-column ">
+                    <label for="username"  class="is-size-5">Email</label>
+                    <div class="control">
+                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="input is-small"/>
+                    </div>
+                </div>
 
-        <button type="submit">login</button>
-    </form>
+                <div class="field is-flex-direction-column ">
+                    <label for="password" class="is-size-5">Mot de passe</label>
+                    <div class="control">
+                        <input type="password" id="password" name="_password" class="input is-small"/>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_target_path" value="/user/steps"/> 
+                <div class="field is-flex-direction-column ">
+                    <div class="control">
+                        <button type="submit" class="button mt-3">login</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
 {% endblock %}
