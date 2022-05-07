@@ -11,12 +11,22 @@ import "./styles/app.scss";
 // start the Stimulus application
 import "./bootstrap";
 
-// add class to birthday select form
-var birthdayForm = document.getElementById("registration_form_birthday");
-var birthdaySelect = birthdayForm.childNodes;
+// Initialize all input of type date
+var calendars = bulmaCalendar.attach('[type="date"]', options);
 
-birthdaySelect.forEach((select) => {
-    if (select.tagName === "SELECT") {
-        select.classList.add("select", "is-normal", "px-6", "is-size-6");
-    }
-});
+// Loop on each calendar initialized
+for (var i = 0; i < calendars.length; i++) {
+    // Add listener to select event
+    calendars[i].on("select", (date) => {
+        console.log(date);
+    });
+}
+
+// To access to bulmaCalendar instance of an element
+var element = document.querySelector("#my-element");
+if (element) {
+    // bulmaCalendar instance is available as element.bulmaCalendar
+    element.bulmaCalendar.on("select", function (datepicker) {
+        console.log(datepicker.data.value());
+    });
+}

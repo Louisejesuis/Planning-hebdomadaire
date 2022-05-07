@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheets %}
     {{ encore_entry_link_tags('bulma') }}
+    {{ encore_entry_link_tags('bulma_calendar_css') }}
     {{ encore_entry_link_tags('app_scss') }}
     {% endblock %}
     </head>
@@ -16,6 +17,7 @@
         </div>
         {% block javascripts %}
         {{ encore_entry_script_tags('app_js') }}
+        {{ encore_entry_script_tags('bulma_calendar_js') }}
         {% endblock %}
     </body>
 </html>

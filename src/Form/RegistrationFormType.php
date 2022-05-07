@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -53,8 +54,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Date de naissance',
-                'format' => 'dd-MM-yyyy',
-                'years' => range(date('Y')-100, date('Y')),
+                'widget' => 'single_text',
                 'label_attr' => [
                     'class' => 'is-size-5 '
                 ],
@@ -88,10 +88,10 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('save', SubmitType::class, [
-    'attr' => ['class' => 'button mt-2'],
-    'label' => 'Créer un compte'
+                'attr' => ['class' => 'button mt-2'],
+                'label' => 'Créer un compte'
 
-]);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
