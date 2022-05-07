@@ -1,39 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}UserSteps index{% endblock %}
+{% block title %}Mes démarches{% endblock %}
 
 {% block body %}
-    <h1>UserSteps index</h1>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <h2 class="title has-text-centered is-size-2">Mes démarches</h2>
+        </div>
+    </section>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Duration</th>
-                <th>Comment</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user_step in user_steps %}
-            <tr>
-                <td>{{ user_step.id }}</td>
-                <td>{{ user_step.date ? user_step.date|date('Y-m-d') : '' }}</td>
-                <td>{{ user_step.duration ? user_step.duration|date('H:i:s') : '' }}</td>
-                <td>{{ user_step.comment }}</td>
-                <td>
-                    <a href="{{ path('app_user_steps_show', {'id': user_step.id}) }}">show</a>
-                    <a href="{{ path('app_user_steps_edit', {'id': user_step.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <p>Nous sommes le {{ "now"|date()|format_datetime('full', 'none', locale='fr') }}</p>
+        <p>la semaine n°{{ "now"|date('W')}} du {{"now"|date()|date_modify('last Monday')|format_datetime('full', 'none', locale='fr') }} au {{"now"|date()|date_modify('next Wednesday')|format_datetime('full', 'none', locale='fr') }} </p>
 
-    <a href="{{ path('app_user_steps_new') }}">Create new</a>
+        <div class="columns is-multiline">
+            {% for i in 0..6 %}
+                {% set modifier = 'last Monday +'~ i ~ ' day' %}
+                {% set day = "NOW"|date()|date_modify(modifier) %}
+                <div class="column is-3">
+                    <div class="box">
+                        <h3 class="title has-text-centered is-size-6">{{day|format_datetime('full', 'none', locale='fr')}}</h3>
+                        <h4>{{user_steps|filter(step => step.date == day)|length}} démarche(s) réalisée(s)</h4>
+                        {% for step in user_steps %}
+                            {% if step.date == day %}
+                                <h5 class="title">{{step.step.name}}</h5>
+                                <p>pendant {{step.duration|format_datetime('none', 'short', locale='fr') }} heure(s)</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="column is-3">
+                <div class="box">
+                    <h3 class="title has-text-centered is-size-6">Total</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+{#<a href="{{ path('app_user_steps_new') }}">Create new</a> 
+
+#}

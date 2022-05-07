@@ -20,8 +20,9 @@ class UserStepsController extends AbstractController
     #[Route('/', name: 'app_user_steps_index', methods: ['GET'])]
     public function index(UserStepsRepository $userStepsRepository): Response
     {
+        $current_user_id = $this->getUser()->getId();
         return $this->render('user_steps/index.html.twig', [
-            'user_steps' => $userStepsRepository->findAll(),
+            'user_steps' => $userStepsRepository->findByUser($current_user_id),
         ]);
     }
 

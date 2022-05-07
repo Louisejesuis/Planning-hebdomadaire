@@ -47,22 +47,20 @@ class UserStepsRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return UserSteps[] Returns an array of UserSteps objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    // 
+    //  @return UserSteps[] Returns an array of UserSteps objects
+    //  
+    public function findByUser($user_id)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this->createQueryBuilder('us')
+            ->andWhere('us.user = :val')
+            ->setParameter('val', $user_id)
+            ->orderBy('us.id', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?UserSteps
