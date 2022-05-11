@@ -1,4 +1,36 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="columns is-centered py-6">
+    <div class="column is-7 box px-4 py-4">
+        <div class="field is-flex-direction-column ">
+            {{form_label(form.date)}}
+            <div class="control">{{ form_widget(form.date) }}</div>
+        </div>
+
+        <div class="field is-flex-direction-column ">
+            {{form_label(form.duration)}}
+            <div class="control">{{ form_widget(form.duration) }}</div>
+        </div>
+
+        <div class="field is-flex-direction-column ">
+            {{form_label(form.step)}}
+            <div class="control select">{{ form_widget(form.step) }}</div>
+        </div>
+
+        <div class="field is-flex-direction-column ">
+            {{form_label(form.comment)}}
+            <div class="control">{{ form_widget(form.comment)}}</div>
+        </div>
+
+        <div class="field level">
+            <div class="control">
+                {{ form_widget(form.save, {'label' : button_label}) }}
+            </div>
+            {% if button_label == 'Modifier la démarche' %}
+            <div class="control">
+                {{ include('user_steps/_delete_form.html.twig') }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {{ form_end(form) }}

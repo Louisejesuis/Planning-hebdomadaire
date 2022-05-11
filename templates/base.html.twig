@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{title}}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheets %}
     {{ encore_entry_link_tags('bulma') }}
     {{ encore_entry_link_tags('bulma_calendar_css') }}
     {{ encore_entry_link_tags('app_scss') }}
     {% endblock %}
-    </head>
-    <body>
-        {% include 'includes/navbar.html.twig' %}
-        <div class='content'>
-            {% block body %}
-            {% endblock %}
-        </div>
-        {% block javascripts %}
-        {{ encore_entry_script_tags('app_js') }}
-        {{ encore_entry_script_tags('bulma_calendar_js') }}
+</head>
+
+<body>
+    {% include 'includes/navbar.html.twig' %}
+    <section class='container'>
+        {% block body %}
         {% endblock %}
-    </body>
+    </section>
+    {% block javascripts %}
+
+    {{ encore_entry_script_tags('app_js') }}
+    {{ encore_entry_script_tags('bulma_calendar_js') }}
+    <script src="https://kit.fontawesome.com/18f650d607.js" crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
+
 </html>

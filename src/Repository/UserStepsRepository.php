@@ -58,10 +58,23 @@ class UserStepsRepository extends ServiceEntityRepository
             ->orderBy('us.id', 'ASC')
             ->getQuery();
         return $query->getResult();
-
     }
-    
 
+    // 
+    //  @return UserSteps[] Returns an array of UserSteps objects
+    //  
+    public function findByDateAndUser($user, $date = null)
+    {
+
+        $query = $this->createQueryBuilder('us')
+            ->andWhere('us.date = :date')
+            ->andWhere('us.user = :user')
+            ->setParameter('date', $date)
+            ->setParameter('user', $user)
+            ->orderBy('us.id', 'ASC')
+            ->getQuery();
+        return $query->getResult();
+    }
     /*
     public function findOneBySomeField($value): ?UserSteps
     {

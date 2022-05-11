@@ -59,7 +59,8 @@ class RegistrationFormType extends AbstractType
                     'class' => 'is-size-5 '
                 ],
                 'attr' => [
-                    'class' => 'birthday_selector'
+                    'class' => 'input',
+                    'value' => "1995-01-01"
                 ],
 
             ])

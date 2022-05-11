@@ -1,48 +1,44 @@
+{% set title = 'Créer un compte' %}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un compte{% endblock %}
-
 {% block body %}
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <h2 class="title has-text-centered is-size-2">Créer un compte</h2>
+
+{{ form_start(registrationForm) }}
+
+<div class="columns is-centered py-6">
+    <div class="column is-half box px-4 py-4">
+        <div class="field is-flex-direction-column ">
+            {{form_label(registrationForm.first_name)}}
+            <div class="control">{{ form_widget(registrationForm.first_name) }}</div>
         </div>
-    </section>
 
-    {{ form_start(registrationForm) }}
-
-        <div class="columns is-centered py-6">
-        <div class="column is-half box px-4 py-4">
-            <div class="field is-flex-direction-column ">
-                {{form_label(registrationForm.first_name)}}
-                <div class="control">{{ form_widget(registrationForm.first_name) }}</div>
-            </div>
-
-            <div class="field is-flex-direction-column ">
-                {{form_label(registrationForm.last_name)}}
-                <div class="control">{{ form_widget(registrationForm.last_name) }}</div>
-            </div>
-
-            <div class="field is-flex-direction-column ">
-                {{form_label(registrationForm.email)}}
-                <div class="control">{{ form_widget(registrationForm.email) }}</div>
-            </div>
-
-            <div class="field is-flex-direction-column ">
-                {{form_label(registrationForm.birthday)}}
-                <div class="control">{{ form_widget(registrationForm.birthday)}}</div>
-            </div>
-
-            <div class="field is-flex-direction-column ">
-                {{form_label(registrationForm.plainPassword)}}
-                <div class="control">{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input is-small'}}) }}</div>
-            </div>
-
-            <div class="field is-flex-direction-column ">
-                {{ form_widget(registrationForm.save) }}
-            </div>
+        <div class="field is-flex-direction-column ">
+            {{form_label(registrationForm.last_name)}}
+            <div class="control">{{ form_widget(registrationForm.last_name) }}</div>
         </div>
+
+        <div class="field is-flex-direction-column ">
+            {{form_label(registrationForm.email)}}
+            <div class="control">{{ form_widget(registrationForm.email) }}</div>
         </div>
-    {{ form_end(registrationForm) }}
+
+        <div class="field is-flex-direction-column ">
+            {{form_label(registrationForm.birthday)}}
+            <div class="control">{{ form_widget(registrationForm.birthday)}}</div>
+        </div>
+
+        <div class="field is-flex-direction-column ">
+            {{form_label(registrationForm.plainPassword)}}
+            <div class="control">{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input is-small'}})
+                }}</div>
+        </div>
+
+        <div class="field is-flex-direction-column ">
+            {{ form_widget(registrationForm.save) }}
+        </div>
+    </div>
+</div>
+{{ form_end(registrationForm) }}
 
 {% endblock %}

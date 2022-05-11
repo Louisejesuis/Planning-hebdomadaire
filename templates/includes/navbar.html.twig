@@ -1,38 +1,52 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item">
-        Accueil
-      </a>
-
-      <a class="navbar-item" href={{path('app_user_steps_index')}}>
-        Mes démarches
-      </a>
+<section class="hero is-primary">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item">
+                        <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
+                    </a>
+                    <span class="navbar-burger" data-target="navbarMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </div>
+                <div id="navbarMenu" class="navbar-menu">
+                    <div class="navbar-end">
+                        <a class="navbar-item">
+                            Home
+                        </a>
+                        <a class="navbar-item" href="{{path('app_user_steps_index')}}">
+                            Mes démarches
+                        </a>
+                        <a class="navbar-item" href="{{path('app_user_steps_new')}}">
+                            Ajouter une démarche
+                        </a>
+                        <a class="navbar-item" href="{{path('app_login')}}">
+                            Se connecter
+                        </a>
+                        <a class="navbar-item" href="{{path('app_register')}}">
+                            Créer un compte
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </div>
 
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary" href={{path('app_register')}}>
-            <strong>S'inscrire</strong>
-          </a>
-          <a class="button is-light" href={{path('app_login')}}>
-            Se connecter
-          </a>
+    <div class="hero-body pt-6">
+        <div class="container has-text-centered">
+            <p class="title">
+                {{title}}
+            </p>
+            <p class="subtitle">
+                semaine n°{{ "now"|date('W')}}
+                :
+                {{ "now"|date()|format_datetime('full', 'none', locale='fr') }}
+            </p>
         </div>
-      </div>
     </div>
-  </div>
-</nav>
+
+</section>
