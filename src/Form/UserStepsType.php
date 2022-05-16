@@ -59,6 +59,9 @@ class UserStepsType extends AbstractType
                 'label_attr' => [
                     'class' => 'is-size-5 '
                 ],
+                'group_by' => function ($choice, $key, $value) {
+                    return $choice->getStepCategory()->getName();
+                },
             ])
             ->add('comment', TextareaType::class, [
                 'attr' => [

@@ -20,26 +20,61 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 #[Route('/user/steps')]
 class UserStepsController extends AbstractController
 {
+    /**
+     * Format list of UserSteps Entity by day of the current week and by current user
+     * @return $stepsByDays = [
+     *      [
+     *          'date' = string of the day,
+     *          'steps' = array of Steps Entity,
+     *          'total_duration' => total duration of all the steps of the day
+     *      ]
+     * ]
+     */
+    public function FormatStepsByDays(UserStepsRepository $userStepsRepository): array
+    {
+
+        $stepsByDays = [];
+
+
+        $firstDayOfCurrentWeek = new DateTime();
+        $firstDayOfCurrentWeek->setISODate(date('Y'), date('W'));
+
+        // Loop on each day of the current week
+        for ($i = 0; $i < 7; $i++) {
+
+            $stepsByDays[$i]['date'] = $firstDayOfCurrentWeek
+                ->modify('+' . $i . ' day')
+                ->format('Y-m-d');
+
+            $stepsByDays[$i]['steps'] = $userStepsRepository
+                ->findByDateAndUser(
+                    $this->getUser()->getId(),
+                    $stepsByDays[$i]['date']
+                );
+
+
+            $minutes = 0;
+            foreach ($stepsByDays[$i]['steps'] as $step) {
+                $time = $step
+                    ->getDuration()
+                    ->format('H:i');
+                list($hour, $minute) = explode(':', $time);
+                $minutes += $hour * 60;
+                $minutes += $minute;
+            }
+            $hours = floor($minutes / 60);
+            $minutes -= $hours * 60;
+            $stepsByDays[$i]['total_duration'] = sprintf('%02d:%02d', $hours, $minutes);
+        };
+        return $stepsByDays;
+    }
 
     #[Route('/', name: 'app_user_steps_index', methods: ['GET'])]
     public function index(UserStepsRepository $userStepsRepository): Response
     {
-
-        $stepsByDays = [];
-        for ($i = 0; $i < 7; $i++) {
-
-            $weekStart = new DateTime();
-            $weekStart->setISODate(date('Y'), date('W'));
-            $current_day = $weekStart->modify('+' . $i . ' day');
-            $steps = $userStepsRepository->findByDateAndUser(
-                $this->getUser()->getId(),
-                $stepsByDays[$i]['date'] =
-                    $current_day->format('Y-m-d')
-            );
-            $stepsByDays[$i]['steps'] = $steps;
-        };
+        //var_dump($this->FormatStepsByDays($userStepsRepository));
         return $this->render('user_steps/index.html.twig', [
-            'stepsByDays' => $stepsByDays,
+            'stepsByDays' => $this->FormatStepsByDays($userStepsRepository),
         ]);
     }
 

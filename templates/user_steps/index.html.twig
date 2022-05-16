@@ -13,10 +13,12 @@
 					<h3 class="title is-size-6">
 						{{stepsByDay.date|format_datetime('full', 'none', locale='fr')}}
 					</h3>
+					{% if stepsByDay.steps is not empty %}
 					<p class="subtitle is-size-6">
 						{{stepsByDay.steps|length}}
 						démarche(s) réalisée(s)
 					</p>
+					{% endif %}
 				</div>
 				<div class="column">
 					<a class="button is-small"
@@ -25,12 +27,12 @@
 					</a>
 				</div>
 			</div>
+			{% if stepsByDay.steps is not empty %}
+
 			<table class="table is-fullwidth">
 				<thead>
 					<tr>
-						<th>
-							<abbr title="Catégorie">Cat</abbr>
-						</th>
+						<th>Catégorie</th>
 						<th>Durée</th>
 						<th>Commentaire</th>
 						<th>Action</th>
@@ -62,19 +64,24 @@
 					{% endfor %}
 				</tbody>
 			</table>
+			{% else %}
+			<p>Pas de démarches, <a class="link"
+					href="{{ path('app_user_steps_new', parameters = {'selected_date'  : stepsByDay.date}) }}">
+					en ajouter ?
+				</a></p>
+			{% endif %}
 		</div>
 	</div>
 	{% endfor %}
 	<div class="column is-6">
 		<div class="box">
 			<h3 class="title has-text-centered is-size-6">Total</h3>
-			<table class="table">
+
+			<table class="table is-fullwidth">
 				<thead>
 					<tr>
 						<th>Jour</th>
-						<th>
-							<abbr title="Catégorie">Cat</abbr>
-						</th>
+						<th>Catégorie</th>
 						<th>Durée</th>
 					</tr>
 				</thead>
@@ -94,14 +101,7 @@
 
 							{% endfor %}
 						</td>
-						<td>
-							{% for step in day.steps %}
-							{{step.duration|format_datetime('none', 'short', locale='fr') }}
-							heure(s)
-							<br>
-
-							{% endfor %}
-						</td>
+						<td>{{day.total_duration}} heure(s)</td>
 
 
 					</tr>
