@@ -13,10 +13,8 @@
 
 <body>
     {% include 'includes/navbar.html.twig' %}
-    <section class='container'>
-        {% block body %}
-        {% endblock %}
-    </section>
+    {% block body %}
+    {% endblock %}
     {% block javascripts %}
 
     {{ encore_entry_script_tags('app_js') }}

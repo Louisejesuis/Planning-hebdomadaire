@@ -3,74 +3,75 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<section class='container'>
 
-{{ form_start(registrationForm) }}
+    {{ form_start(registrationForm) }}
 
-<div class="columns is-centered py-6">
-    <div class="column is-half box px-4 py-4">
-        <div class="field">
-            <div class="control has-icons-left">
-                {{ form_widget(registrationForm.first_name) }}
-                <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                </span>
+    <div class="columns is-centered py-6">
+        <div class="column is-half box px-4 py-4">
+            <div class="field">
+                <div class="control has-icons-left">
+                    {{ form_widget(registrationForm.first_name) }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="control has-icons-left">
-                {{ form_widget(registrationForm.last_name) }}
-                <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                </span>
+            <div class="field">
+                <div class="control has-icons-left">
+                    {{ form_widget(registrationForm.last_name) }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="control has-icons-left">
-                {{ form_widget(registrationForm.email) }}
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
+            <div class="field">
+                <div class="control has-icons-left">
+                    {{ form_widget(registrationForm.email) }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="control has-icons-left">
-                {{ form_widget(registrationForm.birthday) }}
-                <span class="icon is-small is-left">
-                    <i class="fas fa-cake-candles"></i>
-                </span>
+            <div class="field">
+                <div class="control has-icons-left">
+                    {{ form_widget(registrationForm.birthday) }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-cake-candles"></i>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="field">
-            <div class="control has-icons-left has-icons-right">
-                {{ form_widget(registrationForm.plainPassword, {
-                'attr': {
-                'class': 'input is-rounded',
-                'placeholder' : 'Mot de passe'
-                }
-                })}}
-                <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                </span>
-                <span class="icon is-small is-right mr-1">
-                    <i class="fas fa-eye"></i>
-                </span>
+            <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                    {{ form_widget(registrationForm.plainPassword, {
+                    'attr': {
+                    'class': 'input is-rounded',
+                    'placeholder' : 'Mot de passe'
+                    }
+                    })}}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <span class="icon is-small is-right mr-1">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
             </div>
-        </div>
 
-        <div class="field is-grouped is-justify-content-space-between">
-            <div class="control">
-                {{ form_widget(registrationForm.save) }}
-            </div>
-            <div class="control">
-                <a href="{{path('app_login')}}" class="button is-rounded is-outlined">Se connecter</a>
-                <p>Déjà un compte ? </p>
+            <div class="field is-grouped is-justify-content-space-between">
+                <div class="control">
+                    {{ form_widget(registrationForm.save) }}
+                </div>
+                <div class="control">
+                    <a href="{{path('app_login')}}" class="button is-rounded is-outlined">Se connecter</a>
+                    <p>Déjà un compte ? </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{{ form_end(registrationForm) }}
-
+    {{ form_end(registrationForm) }}
+</section>
 {% endblock %}
