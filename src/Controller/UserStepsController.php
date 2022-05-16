@@ -14,7 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
-use Symfony\Component\Validator\Constraints\Time;
 
 #[Route('/user/steps')]
 class UserStepsController extends AbstractController
@@ -24,7 +23,6 @@ class UserStepsController extends AbstractController
     public function index(UserStepsRepository $userStepsRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-
 
         $stepsByDays = [];
         for ($i = 0; $i < 7; $i++) {

@@ -1,3 +1,17 @@
 .box {
     height: 100%;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.2;
+}
+
+input[type="date"] {
+    color: hsl(0, 0%, 80%)
+}
+
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+    opacity: 1;
+}
+
+@import 'bulma';

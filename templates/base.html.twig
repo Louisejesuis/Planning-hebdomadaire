@@ -5,9 +5,9 @@
     <title>{% block title %}{{title}}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheets %}
-    {{ encore_entry_link_tags('bulma') }}
-    {{ encore_entry_link_tags('bulma_calendar_css') }}
+    {{ encore_entry_link_tags('bulma_variables') }}
     {{ encore_entry_link_tags('app_scss') }}
+    {{ encore_entry_link_tags('bulma') }}
     {% endblock %}
 </head>
 
@@ -20,7 +20,6 @@
     {% block javascripts %}
 
     {{ encore_entry_script_tags('app_js') }}
-    {{ encore_entry_script_tags('bulma_calendar_js') }}
     <script src="https://kit.fontawesome.com/18f650d607.js" crossorigin="anonymous"></script>
     {% endblock %}
 </body>

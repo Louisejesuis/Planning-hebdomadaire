@@ -22,56 +22,39 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('first_name', TextType::class, [
-                'label' => 'Prénom',
-                'label_attr' => [
-                    'class' => 'is-size-5 '
-                ],
                 'attr' => [
-                    'class' => 'input is-small'
+                    'class' => 'input is-rounded',
+                    'placeholder' => 'Prénom'
                 ]
 
             ])
             ->add('last_name', TextType::class, [
-                'label' => 'Nom de famille',
-                'label_attr' => [
-                    'class' => 'is-size-5 '
-                ],
                 'attr' => [
-                    'class' => 'input is-small'
+                    'class' => 'input is-rounded',
+                    'placeholder' => 'Nom'
+
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Adresse email',
-                'invalid_message' => 'Le format n\'est pas le bon',
-                'label_attr' => [
-                    'class' => 'is-size-5 '
-                ],
                 'attr' => [
-                    'placeholder' => 'example@example.fr',
-                    'class' => 'input is-small'
+                    'placeholder' => 'Email',
+                    'class' => 'input is-rounded'
 
                 ]
             ])
             ->add('birthday', DateType::class, [
-                'label' => 'Date de naissance',
                 'widget' => 'single_text',
-                'label_attr' => [
-                    'class' => 'is-size-5 '
-                ],
                 'attr' => [
-                    'class' => 'input',
-                    'value' => "1995-01-01"
+                    'class' => 'input is-rounded',
+                    'min' => "1960-01-01",
+                    'max' => "2004-01-01",
+
+                    'placeholder' => 'Date de naissance'
+
                 ],
 
             ])
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'label_attr' => [
-                    'class' => 'is-size-5 '
-                ],
-                'attr' => [
-                    'class' => 'input is-small'
-                ],
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -89,7 +72,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'button mt-2'],
+                'attr' => ['class' => 'button is-rounded is-primary is-outlined'],
                 'label' => 'Créer un compte'
 
             ]);

@@ -21,16 +21,11 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry("app_js", "./assets/app.js")
-    .addEntry(
-        "bulma_calendar_js",
-        "./node_modules/bulma-calendar/dist/js/bulma-calendar.min.js"
-    )
-    .addStyleEntry("bulma", "./assets/bulma/css/bulma.css")
+
+    .addStyleEntry("bulma_variables", "./assets/styles/bulmaVariables.scss")
+    .addStyleEntry("bulma", "./assets/bulma/bulma.sass")
     .addStyleEntry("app_scss", "./assets/styles/app.scss")
-    .addStyleEntry(
-        "bulma_calendar_css",
-        "./node_modules/bulma-calendar/dist/css/bulma-calendar.min.css"
-    )
+
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge("./assets/controllers.json")

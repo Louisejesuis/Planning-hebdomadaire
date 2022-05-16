@@ -8,34 +8,66 @@
 
 <div class="columns is-centered py-6">
     <div class="column is-half box px-4 py-4">
-        <div class="field is-flex-direction-column ">
-            {{form_label(registrationForm.first_name)}}
-            <div class="control">{{ form_widget(registrationForm.first_name) }}</div>
+        <div class="field">
+            <div class="control has-icons-left">
+                {{ form_widget(registrationForm.first_name) }}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </div>
         </div>
 
-        <div class="field is-flex-direction-column ">
-            {{form_label(registrationForm.last_name)}}
-            <div class="control">{{ form_widget(registrationForm.last_name) }}</div>
+        <div class="field">
+            <div class="control has-icons-left">
+                {{ form_widget(registrationForm.last_name) }}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </div>
         </div>
 
-        <div class="field is-flex-direction-column ">
-            {{form_label(registrationForm.email)}}
-            <div class="control">{{ form_widget(registrationForm.email) }}</div>
+        <div class="field">
+            <div class="control has-icons-left">
+                {{ form_widget(registrationForm.email) }}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+            </div>
         </div>
 
-        <div class="field is-flex-direction-column ">
-            {{form_label(registrationForm.birthday)}}
-            <div class="control">{{ form_widget(registrationForm.birthday)}}</div>
+        <div class="field">
+            <div class="control has-icons-left">
+                {{ form_widget(registrationForm.birthday) }}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-cake-candles"></i>
+                </span>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control has-icons-left has-icons-right">
+                {{ form_widget(registrationForm.plainPassword, {
+                'attr': {
+                'class': 'input is-rounded',
+                'placeholder' : 'Mot de passe'
+                }
+                })}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+                <span class="icon is-small is-right mr-1">
+                    <i class="fas fa-eye"></i>
+                </span>
+            </div>
         </div>
 
-        <div class="field is-flex-direction-column ">
-            {{form_label(registrationForm.plainPassword)}}
-            <div class="control">{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'input is-small'}})
-                }}</div>
-        </div>
-
-        <div class="field is-flex-direction-column ">
-            {{ form_widget(registrationForm.save) }}
+        <div class="field is-grouped is-justify-content-space-between">
+            <div class="control">
+                {{ form_widget(registrationForm.save) }}
+            </div>
+            <div class="control">
+                <a href="{{path('app_login')}}" class="button is-rounded is-outlined">Se connecter</a>
+                <p>Déjà un compte ? </p>
+            </div>
         </div>
     </div>
 </div>
