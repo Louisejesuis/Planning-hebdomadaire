@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 #[Route('/user/steps')]
 class UserStepsController extends AbstractController
@@ -22,7 +24,6 @@ class UserStepsController extends AbstractController
     #[Route('/', name: 'app_user_steps_index', methods: ['GET'])]
     public function index(UserStepsRepository $userStepsRepository): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $stepsByDays = [];
         for ($i = 0; $i < 7; $i++) {
@@ -45,7 +46,6 @@ class UserStepsController extends AbstractController
     #[Route('/new', name: 'app_user_steps_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserStepsRepository $userStepsRepository, ManagerRegistry $doctrine, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $selectedDate = new DateTime($request->get('selected_date'));
 
@@ -76,7 +76,6 @@ class UserStepsController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_steps_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, UserSteps $userStep, UserStepsRepository $userStepsRepository): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
 
         $form = $this->createForm(UserStepsType::class, $userStep);
         $form->handleRequest($request);
@@ -95,7 +94,6 @@ class UserStepsController extends AbstractController
     #[Route('/{id}', name: 'app_user_steps_delete', methods: ['POST'])]
     public function delete(Request $request, UserSteps $userStep, UserStepsRepository $userStepsRepository): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
 
         if ($this->isCsrfTokenValid('delete' . $userStep->getId(), $request->request->get('_token'))) {
             $userStepsRepository->remove($userStep);
