@@ -14,44 +14,38 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
+use IntlCalendar;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use DateTimeImmutable;
 
 #[Route('/user/steps')]
 class UserStepsController extends AbstractController
 {
     /**
      * Format list of UserSteps Entity by day of the current week and by current user
-     * @return $stepsByDays = [
+     * @param string $mondayOfTheWeek format 'm/d/Y'
+     * @return array $stepsByDays = [
      *      [
      *          'date' = string of the day,
      *          'steps' = array of Steps Entity,
      *          'total_duration' => total duration of all the steps of the day
      *      ]
      * ]
+     * 
      */
-    public function FormatStepsByDays(UserStepsRepository $userStepsRepository): array
+    public function FormatStepsByDays(UserStepsRepository $userStepsRepository, $mondayOfTheWeekString): array
     {
-
-        $stepsByDays = [];
-
-
-        $firstDayOfCurrentWeek = new DateTime();
-        $firstDayOfCurrentWeek->setISODate(date('Y'), date('W'));
-
         // Loop on each day of the current week
         for ($i = 0; $i < 7; $i++) {
-
-            $stepsByDays[$i]['date'] = $firstDayOfCurrentWeek
-                ->modify('+' . $i . ' day')
-                ->format('Y-m-d');
+            $mondayOfTheWeek = new Datetime($mondayOfTheWeekString);
+            $mondayOfTheWeek->modify('+ ' . $i . ' day')->format('Y-m-d');
+            $stepsByDays[$i]['date'] = $mondayOfTheWeek;
 
             $stepsByDays[$i]['steps'] = $userStepsRepository
                 ->findByDateAndUser(
                     $this->getUser()->getId(),
                     $stepsByDays[$i]['date']
                 );
-
 
             $minutes = 0;
             foreach ($stepsByDays[$i]['steps'] as $step) {
@@ -64,17 +58,47 @@ class UserStepsController extends AbstractController
             }
             $hours = floor($minutes / 60);
             $minutes -= $hours * 60;
-            $stepsByDays[$i]['total_duration'] = sprintf('%02d:%02d', $hours, $minutes);
+            $stepsByDays[$i]['total_duration']['hours'] = $hours;
+            $stepsByDays[$i]['total_duration']['minutes'] = $minutes;
         };
+
         return $stepsByDays;
     }
 
-    #[Route('/', name: 'app_user_steps_index', methods: ['GET'])]
-    public function index(UserStepsRepository $userStepsRepository): Response
+    /**
+     * Get List of weeks compared to a day
+     * 
+     * @param string $mondayOfTheWeek format 'm/d/Y'
+     * @return array 2 weeks before, current week and 2 weeks after
+     * 
+     */
+    public function getListOfWeeks($mondayOfTheWeekString): array
     {
-        //var_dump($this->FormatStepsByDays($userStepsRepository));
+
+        $listOfWeeks = [];
+
+        for ($i = 0; $i < 6; $i++) {
+            $mondayOfTheWeek = new DateTime($mondayOfTheWeekString);
+            $mondayOfTheWeek->modify('- 2 weeks');
+            $mondayOfTheWeek->modify('+' . $i . ' weeks');
+            $listOfWeeks[$i] = $mondayOfTheWeek;
+        }
+        return $listOfWeeks;
+    }
+
+    #[Route('/', name: 'app_user_steps_index', methods: ['GET'])]
+    public function index(Request $request, UserStepsRepository $userStepsRepository): Response
+    {
+        $dayOfWeek = new DateTime($request->get('day'));
+        if ($dayOfWeek->format('w') !== '1') {
+            $mondayOfTheWeekString = $dayOfWeek->modify('monday this week')->format('m/d/Y');
+        } else {
+            $mondayOfTheWeekString = $dayOfWeek->format('m/d/Y');
+        }
+
         return $this->render('user_steps/index.html.twig', [
-            'stepsByDays' => $this->FormatStepsByDays($userStepsRepository),
+            'stepsByDays' =>
+            $this->FormatStepsByDays($userStepsRepository, $mondayOfTheWeekString), 'listOfWeeks' => $this->getListOfWeeks($mondayOfTheWeekString),
         ]);
     }
 
